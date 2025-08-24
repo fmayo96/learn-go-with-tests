@@ -1,0 +1,25 @@
+package pointerserrors
+
+import "testing"
+
+func TestWallet(t *testing.T) {
+	t.Run("deposit", func(t *testing.T) {
+		w := Wallet{}
+		w.Deposit(Bitcoin(10))
+		assertBalance(t, w, Bitcoin(10))
+	})
+
+	t.Run("withdraw", func(t *testing.T) {
+		w := Wallet{balance: Bitcoin(20)}
+		w.Withdraw(Bitcoin(5))
+		assertBalance(t, w, Bitcoin(15))
+	})
+}
+
+func assertBalance(t testing.TB, w Wallet, want Bitcoin) {
+	t.Helper()
+	got := w.Balance()
+	if got != want {
+		t.Errorf("got %s, wanted %s", got, want)
+	}
+}
