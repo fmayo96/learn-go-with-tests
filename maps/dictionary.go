@@ -23,3 +23,21 @@ func (d Dictionary) Add(key, value string) error {
 	d[key] = value
 	return nil
 }
+
+func (d Dictionary) Update(key, value string) error {
+	_, ok := d[key]
+	if !ok {
+		return ErrNotFound
+	}
+	d[key] = value
+	return nil
+}
+
+func (d Dictionary) Delete(key string) error {
+	_, ok := d[key]
+	if !ok {
+		return ErrNotFound
+	}
+	delete(d, key)
+	return nil
+}
